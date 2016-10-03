@@ -1,0 +1,8 @@
+<footer class="simpler">
+  <% for i=1,4 do %>
+    <div>
+      <h2>Footer</h2>
+      <p>This is a footer element with the number <%= i %></p>
+    </div>
+  <% end %>
+</footer>

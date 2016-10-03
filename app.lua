@@ -5,10 +5,12 @@ app:enable("etlua")
 app.layout = false
 
 app:get("/", function(self)
-  return self:html(function(env)
+  return {self:html(function(env)
     h1 "Main Page"
     p "Nothing to see here, move along"
-  end)
+  end);
+  layout="layout";
+  }
 end)
 
 app:get("file", "/file/*", function(self)
@@ -30,10 +32,16 @@ app:get("file", "/file/*", function(self)
     file:close()
     return input
   else
-    return {err, status=404}
-    -- DEBUG
-    -- VULNERABILITY[PROBING]
+    self.no_footer=true
+    self.msg="The file you are trying to download does not exist"
+    return {render="404", layout="layout", status=404}
   end
 end)
+
+app.handle_404 = function(self)
+  self.no_footer=true
+  self.msg="You were trying to access something you shouldn't :("
+  return {render="404", layout="layout", status=404}
+end
 
 return app

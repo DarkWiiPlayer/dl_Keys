@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <link rel="stylesheet" href="/static/style.css" type="text/css" />
+
+  <body>
+    <header>
+      <h1><img src="/static/dlkey.svg" style="height: 1em;" /> dlKeys</h1>
+    </header>
+
+    <main>
+      <% content_for "inner" %>
+    </main>
+  </body>
+  
+  <%
+    if not no_footer then render "views.footer" end
+  %>
+</html>
