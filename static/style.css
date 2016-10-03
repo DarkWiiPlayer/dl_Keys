@@ -1,0 +1,62 @@
+/* INIT */
+
+* {
+  --bg_blue:#09e;
+  --fg_blue:#048;
+  --spacing:0.4em;
+}
+* { box-sizing: border-box; font-family: "sans-serif"; font-weight: normal;}
+* { padding:0; margin: 0; }
+
+*+h1, *+h2, *+h3, *+h4, *+p {
+  margin-top:var(--spacing);
+}
+
+/* GENERAL */
+
+header, main, footer {
+  margin: 1em;
+  padding: 1em;
+}
+
+/* HEADER */
+
+header {
+  color: white;
+  border-radius: 1em;
+  background: var(--bg_blue);
+}
+
+/* MAIN */
+
+
+/* FOOTER */
+
+footer {
+  /* appearance */
+  background: var(--bg_blue);
+  color: white;
+  border-radius: 1em;
+  min-height: 16vh;
+  /* padding:0;background:white; */
+  
+  /* layout */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+} footer.simpler {
+  padding: 0;
+  background: white;
+}
+
+footer>* {
+  /* appearance */
+  background-color: var(--bg_blue);
+  border-radius: 0.6em;
+  
+  /* layout */
+  flex-basis: 20em;
+  flex-grow: 2;
+  margin: 0.2em;
+  padding: 1em;
+}
