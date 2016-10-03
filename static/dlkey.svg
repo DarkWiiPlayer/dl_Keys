@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 150.76923 150"
+   height="150"
+   width="150.76923">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="display:none"
+     transform="translate(0,-752.36219)"
+     id="layer1">
+    <path
+       id="path4165"
+       transform="translate(0,752.36219)"
+       d="M 50,0 A 50.000004,50.000004 0 0 0 0,50 50.000004,50.000004 0 0 0 50,100 50.000004,50.000004 0 0 0 100,50 50.000004,50.000004 0 0 0 50,0 Z m 0,20 A 30.000008,30.000008 0 0 1 80,50 30.000008,30.000008 0 0 1 50,80 30.000008,30.000008 0 0 1 20,50 30.000008,30.000008 0 0 1 50,20 Z"
+       style="fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="792.36218"
+       x="90"
+       height="20.000008"
+       width="110"
+       id="rect4169"
+       style="fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="rect4173"
+       d="m 179.99998,862.36222 20,-30 -40,0 z"
+       style="fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       transform="scale(1,-1)"
+       style="fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4171-3"
+       width="20.000011"
+       height="20.000008"
+       x="169.99998"
+       y="-832.36218" />
+    <path
+       id="path4191"
+       d="m 149.99998,862.36222 0,10 60,0 0,-10"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:10;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="-822.36218"
+       x="139.99998"
+       height="10.000015"
+       width="19.999996"
+       id="rect4193"
+       style="fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(1,-1)" />
+  </g>
+  <g
+     style="display:inline"
+     id="layer2">
+    <path
+       id="path4191-9"
+       d="m 0,110 0,20 0,20 150.76923,0 0,-20 0,-20 -14.76923,0 0,26 -121.230769,0 0,-26 z"
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:20;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    <path
+       id="rect4153"
+       d="M 75,0 C 59.833334,0 45,12.916667 45,35 l 0,15 -5,0 0,26 -15,0 50,44 50,-44 -15,0 0,-26 -5,0 0,-15 C 105,12.916667 90.166666,0 75,0 Z m 0,10 c 9.833333,0 20,7.083333 20,25 l 0,15 -40,0 0,-15 C 55,17.083333 65.166667,10 75,10 Z m 0,49 c 5.463624,0 10,4.536376 10,10 0,3.648732 -2.028613,6.87634 -5,8.623047 L 80,88 70,88 70,77.623047 C 67.028613,75.87634 65,72.648732 65,69 65,63.536376 69.536376,59 75,59 Z"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>
