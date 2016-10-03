@@ -4,7 +4,15 @@
 
   <body>
     <header>
-      <h1><img src="/static/dlkey.svg" style="height: 1em;" /> dlKeys</h1>
+      <a href="//www.darkwiiplayer.com" target="_blank">
+        <h1><img src="/static/dlkey.svg" style="height: 1em; margin-right: 0.4em;" /> dl_Keys</h1>
+      </a>
+      <nav>
+        <% for i,page in pairs(nav) do %>
+          <a href="<%=url_for(page:lower():gsub(" ","_"))%>"><%=page%></a>
+        <% end %>
+        <a href="//google.de" target="_blank">google.de</a>
+      </nav>
     </header>
 
     <main>

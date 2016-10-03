@@ -1,13 +1,23 @@
 local lapis = require("lapis")
+local configuration = require("lapis.config").get()
 local app = lapis.Application()
 
 app:enable("etlua")
 app.layout = false
 
-app:get("/", function(self)
+app:before_filter(function(self)
+  self.nav = {"Front page", "About"}
+  self.configuration = configuration;
+end)
+
+app:get("front_page", "/", function(self)
   return {self:html(function(env)
     h1 "Main Page"
-    p "Nothing to see here, move along"
+    p "Nothing to see here, move along!"
+    p(function() 
+      text "Here's a link: "
+      a{"google.de", href="//google.de"}
+    end)
   end);
   layout="layout";
   }
@@ -36,6 +46,21 @@ app:get("file", "/file/*", function(self)
     self.msg="The file you are trying to download does not exist"
     return {render="404", layout="layout", status=404}
   end
+end)
+
+-- About dl_Keys
+
+app:get("about", "/about", function(self)
+  return {self:html(function(env)
+    h1 "About dl_Keys"
+    p "dl_Keys is a web-app built on top of the lapis web framework that serves files for downloads pretected by download keys."
+    p(function() 
+      text "Author: "
+      a{"DarkWiiplayer", href="//darkwiiplayer.com"}
+    end)
+  end);
+  layout="layout";
+  }
 end)
 
 app.handle_404 = function(self)

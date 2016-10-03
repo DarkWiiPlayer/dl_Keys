@@ -1,11 +1,32 @@
 /* INIT */
 
 * {
-  --bg_blue:#09e;
-  --fg_blue:#048;
+  /* Blue Theme */
+  --bg_main:#09e;
+  --fg_main:white;
+  --fg_text:black;
+  --bg_text:white;
+  
+  /* Green Theme */
+  /*
+  --bg_main:#0d6; 
+  --fg_main:white;
+  */
+  
+  
+  /* Dark Green Theme */
+  /*
+  --bg_main:#0a2; 
+  --fg_main:black;
+  --fg_text:#dfd;
+  --bg_text:black;
+  */
+  
+  
+  --trans:RGBA(0, 0, 0, 0);
   --spacing:0.4em;
 }
-* { box-sizing: border-box; font-family: "sans-serif"; font-weight: normal;}
+* { box-sizing: border-box; font-family: "sans-serif"; font-weight: normal; color:inherit; text-decoration:inherit;}
 * { padding:0; margin: 0; }
 
 *+h1, *+h2, *+h3, *+h4, *+p {
@@ -18,27 +39,87 @@ header, main, footer {
   margin: 1em;
   padding: 1em;
 }
+header, footer, footer>* {
+  border-radius: 0.4em;
+}
+
+/* DOCUMENT */
+:root {
+  background: var(--bg_text);
+  color: var(--fg_text);
+}
 
 /* HEADER */
 
 header {
-  color: white;
-  border-radius: 1em;
-  background: var(--bg_blue);
+  /* appearance */
+  color: var(--fg_main);
+  background: var(--bg_main);
+  
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+/*
+header>*:last-child{
+  margin-left: auto;
+}
+*/
+
+/* NAVIGATION */
+
+nav {
+  /* layout */
+  display: flex;
+  align-items: center;
+  padding-top:0.4em;
+  padding-bottom:0.4em;
+}
+nav>* {
+  padding: 0.2em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  
+  border: 1px solid var(--fg_main);
+  /* here's some inspiration:
+    border-bottom-color: RGBA(255, 255, 255, 0.6);
+    border-right-color: RGBA(255, 255, 255, 0.6);
+  */
+  
+  white-space: nowrap;
+}
+nav>*+* {
+  margin-left:0.4em;
+}
+nav>a{
+  transition:background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+nav>a:hover {
+  background: var(--fg_main);
+  color: var(--bg_main);
 }
 
 /* MAIN */
 
+main a {
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  border-bottom: 0.16em solid var(--bg_main);
+}
+main a:hover {
+  background: var(--bg_main);
+  color: var(--fg_main);
+}
 
 /* FOOTER */
 
 footer {
   /* appearance */
-  background: var(--bg_blue);
-  color: white;
-  border-radius: 1em;
+  background: var(--bg_main);
+  color: var(--fg_main);
   min-height: 16vh;
-  /* padding:0;background:white; */
   
   /* layout */
   display: flex;
@@ -46,13 +127,12 @@ footer {
   flex-wrap: wrap;
 } footer.simpler {
   padding: 0;
-  background: white;
+  background: var(--trans);
 }
 
 footer>* {
   /* appearance */
-  background-color: var(--bg_blue);
-  border-radius: 0.6em;
+  background-color: var(--bg_main);
   
   /* layout */
   flex-basis: 20em;
