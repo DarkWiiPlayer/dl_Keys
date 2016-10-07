@@ -1,5 +1,12 @@
 local lib = {}
 
+local keyfile = ".keys"
+
+function lib.set_keyfile(kf)
+  keyfile = kf or keyfile
+  return lib
+end
+
 --[[
 #   Key format:
   {
@@ -16,7 +23,11 @@ local lib = {}
   - Read Keys --done
   - Write Keys --done
   - `__tostring` metamethod for keys --done
-  - implement key object integrity check
+  - implement key object integrity check --done
+  2016-10-07
+  - Check for key validity --done
+  2016-10-08
+  - Use key
 --]]
 
 -- **Data Access / Back-end**
@@ -101,52 +112,29 @@ end
 
 -- **Interface / Front-end**
 
-local keyfile = ".keys"
-
-function lib.add(directory, key)
-  local keys,err = read_keys(keyfile)
-  if not keys then return nil, err end
-  
-  table.insert(keys, key)
-  --table.sort(keys, function(a,b) return a.dir<b.dir end) -- **TODO**: Improve
-  
-  print("Writing "..#keys.." keys...")
-  return write_keys(keyfile, keys)
+local function is_sub_dir(sub_dir, dir)
+  print(sub_dir)
+  print(dir:gsub("/$", ""):gsub("^/?", "^/?"))
+  return sub_dir:gsub("/&", ""):find(dir:gsub("/$", ""):gsub("^/?", "^/?")) and true or false
 end
 
-function lib.remove(filter)
+function lib.is_valid_key(key, path)
+  -- Is the key invalid or has it expired?
+  if not check_data_integrity(key) then return false end
   
-  local keys,err = read_keys(keyfile)
-  if not keys then return nil, err end
+  -- Has the key lifetime started yet?
+  if (tonumber(key.starts)) < os.time() then return false end
   
-  local result = {}
-  for _, key in ipairs(keys) do
-    if (not filter.path or filter.path==key.path) and
-    (not filter.key or filter.path==key.key) and
-    (not filter.expires or filter.path==key.expires) and
-    (not filter.created or filter.path==key.created) then
-      table.insert(result,key)
-    end
+  -- If dir is provided, does the key apply to it?
+  if type(path)=="string" then
+    return is_sub_dir(path, key.path)
   end
   
-  return write_keys(keyfile, result) -- this _should_ lead to a proper tail call
+  return true
 end
 
-function lib.can_access(keystr, directory)
-  -- |broken| todo: actually check that the directory maches too
-  -- |broken| todo: check that the key is actually valid!
-  local keys = read_keys(keyfile)
-  for index, key in ipairs(keys) do
-    if keystr == key.key then return true end
-  end
-  return false
-end
-
-
+-- debugging stuff --
 local k = read_keys(keyfile) or {}
-k[#k+1]=setmetatable({path="/", key=genKey(10), starts=os.time(), ends=os.time()+20, max_clicks=20, clicks=0}, _key_meta)
-write_keys(keyfile, k)
-print(#k)
-print(k[#k])
+k[#k+1]=setmetatable({path="/", key=genKey(10), starts=os.time(), ends=os.time()+120, max_clicks=20, clicks=0}, _key_meta)
 
 return lib
