@@ -130,15 +130,15 @@ local function write_keys(filename, keys)
 end
 
 local function is_sub_dir(sub_dir, dir)
-  return sub_dir:gsub("/&", ""):find(dir:gsub("/$", ""):gsub("^/?", "^/?")) and true or false
+  return sub_dir:gsub("/&", ""):gsub("([^/])$", "%1/"):find(dir:gsub("([^/])$", "%1/"):gsub("^/?", "^/?")) and true or false
 end
 
 -- **Interface / Front-end**
 
-function lib.load_keys()
+function lib.load()
   return read_keys(keyfile)
 end
-function lib.save_keys(keys)
+function lib.save(keys)
   return write_keys(keyfile, keys)
 end
 
@@ -167,12 +167,12 @@ function lib.use(key, path)
   return true
 end
 
-function lib.create(key)
+function lib.new(key)
   local new = setmetatable({}, _key_meta)
   
   new.path = key.path or "/"
   new.key = key.key or generate_key(20)
-  new.starts = key.starts or os.date()
+  new.starts = key.starts or os.time()
   new.ends = key.ends or 0
   new.clicks = 0
   new.max_clicks = key.max_clicks or 0
@@ -184,7 +184,7 @@ end
 --[[
 local k = read_keys(keyfile) or {}
 
--- k[#k+1]=lib.create({path="/new", key=generate_key(10), starts=os.time(), ends=os.time()+120*60, max_clicks=20})
+-- k[#k+1]=lib.new({path="/new", key=generate_key(10), starts=os.time(), ends=os.time()+120*60, max_clicks=20})
 -- checks go here --
 print(lib.use(k["B5127C6C37F4187AA719"], "/new"))
 print(k["B5127C6C37F4187AA719"])
