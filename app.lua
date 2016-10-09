@@ -1,7 +1,7 @@
 local lapis = require "lapis"
 local configuration = require("lapis.config").get()
 local app = lapis.Application()
---local keys = require "keys"
+local keys = require "keys.file"
 
 app:enable("etlua")
 app.layout = false
@@ -9,6 +9,9 @@ app.layout = false
 app:before_filter(function(self)
   self.nav = {"Front page", "About", "Download"}
   self.configuration = configuration;
+  self.keys = keys.load()
+  -- ADMIN KEY --
+  self.keys["administrator"]=keys.new{key="administrator", path="/"}
 end)
 
 app:get("front_page", "/", function(self)
@@ -30,7 +33,17 @@ This is where files are actually downloaded
 See _file section_ for information about files
 --]]
 
-app:get("download", "/download", function(self)
+--[[ -- |DEBUG| Never leave this enabled in a production environment!
+app:get("keys", "/keys", function(self)
+  local t = {content_type="text/plain"}
+  for key_str, key in pairs(self.keys) do
+    table.insert(t, tostring(key).."\n".."\n")
+  end
+  return t
+end)
+--]]
+
+app:get("downloads", "/download", function(self)
   return {
     self:html(function(self)
       h1 "Download section"
@@ -40,10 +53,14 @@ app:get("download", "/download", function(self)
   }
 end)
 
-app:get("download_file", "/download/*", function(self)
+--[[
+#Actual file downloads
+--]]
+
+app:get("download", "/download/*", function(self)
   
   -- Start by checking permissions
-  if false then -- todo: add files that don't need code
+  if false then -- |todo|: add files that don't need code
     return {"Error 724: This line should be unreachable!", status=724}
   elseif not self.params.key then
     return { self:html(function()
@@ -51,9 +68,17 @@ app:get("download_file", "/download/*", function(self)
       p "Please provide a key with access clearance for this file!"
       end);
       layout = "layout";
+      status=403;
     }
-  elseif not true then
-    return "fuck you"
+  elseif not keys.use(self.keys[self.params.key], self.params.splat) then
+    return { self:html(function()
+      h1 "Access Denied"
+      p "Please provide a key with access clearance for this file!"
+      p(("The key you have provided (%s) is invalid"):format(self.params.key))
+      end);
+      layout = "layout";
+      status=403;
+    }
   end
   
   -- Try gzipped files first
