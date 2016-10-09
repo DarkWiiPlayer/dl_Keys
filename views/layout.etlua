@@ -16,7 +16,7 @@
   <body>
     <header>
       <!-- Change this URL if you want, I won't complain if you don't though xD -->
-      <a href="//www.darkwiiplayer.com" target="_blank">
+      <a href="/">
         <h1><img src="/static/dlkey.svg" style="height: 1em; margin-right: 0.4em;" /> dl_Keys</h1>
       </a>
       <nav>
