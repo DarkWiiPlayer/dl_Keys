@@ -6,7 +6,7 @@
     </div>
   <% end %>
   <div>
-    <h2>dl_Keys</h2>
+    <h2>dl_Keys version <%= configuration.version %></h2>
     <p>
       author: DarkWiiPlayer <br />
       email: <a href="mailto:darkwiiplayer@hotmail.com">darkwiiplayer@hotmail.com</a>
