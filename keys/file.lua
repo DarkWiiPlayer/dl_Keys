@@ -29,9 +29,9 @@ end
   2016-10-08
   - Check data integrity while reading --done
   - ⤷ Remove integrity check when writing --done
-  - Change keys from index->data to key->data
-  - ⤷ Change `ipairs` to `pairs` where needed
-  - Use key -- |todo|
+  - Change keys from index->data to key->data --done
+  - ⤷ Change `ipairs` to `pairs` where needed --done
+  - Use key --done
 --]]
 
 -- **Data Access / Back-end**
