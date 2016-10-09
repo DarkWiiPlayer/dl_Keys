@@ -1,26 +1,37 @@
 /* INIT */
 
+/* THEMES (copy into *)
+  Blue Theme  
+  --bg_main:#09e;
+  --fg_main:white;
+  --fg_text:black;
+  --bg_text:white;
+  
+  Blue Theme 2.0
+  --bg_main:#26a;
+  --fg_main:white;
+  --fg_text:#333;
+  --bg_text:#ccc;
+  
+  Green Theme
+  --bg_main:#0d6; 
+  --fg_main:white;
+  --fg_text:black;
+  --bg_text:white;
+  
+  Dark Green Theme
+  --bg_main:#0a2; 
+  --fg_main:black;
+  --fg_text:#dfd;
+  --bg_text:black;
+*/
+
 * {
   /* Blue Theme */
   --bg_main:#09e;
   --fg_main:white;
   --fg_text:black;
   --bg_text:white;
-  
-  /* Green Theme */
-  /*
-  --bg_main:#0d6; 
-  --fg_main:white;
-  */
-  
-  
-  /* Dark Green Theme */
-  /*
-  --bg_main:#0a2; 
-  --fg_main:black;
-  --fg_text:#dfd;
-  --bg_text:black;
-  */
   
   
   --trans:RGBA(0, 0, 0, 0);
