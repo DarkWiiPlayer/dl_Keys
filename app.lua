@@ -7,7 +7,7 @@ app:enable("etlua")
 app.layout = false
 
 app:before_filter(function(self)
-  self.nav = {"Front page", "About", "Download"}
+  self.nav = {"Front page", "About", "Downloads"}
   self.configuration = configuration;
   self.keys = keys.load()
   -- ADMIN KEY --
@@ -17,10 +17,12 @@ end)
 app:get("front_page", "/", function(self)
   return {self:html(function(env)
     h1 "Main Page"
-    p "Nothing to see here, move along!"
-    p(function() 
-      text "Here's a link: "
-      a{"google.de", href="//google.de"}
+    p "This is where you can put your content; a brief explanation of who you are, or what files you want to share and why, etc."
+    h2 "Project Roadmap"
+    ul(function(self)
+      li "Add directory index"
+      li "Add permissions to directory index"
+      li "Add a way to add keys via web interface"
     end)
   end);
   layout="layout";
@@ -151,6 +153,8 @@ app:get("about", "/about", function(self)
   return {self:html(function(env)
     h1 "About dl_Keys"
     p "dl_Keys is a web-app built on top of the lapis web framework that serves files for downloads protected by download keys."
+    p "The idea is that every key applies to a single file or directory, allowing access to that file or an subdirectory (and its files)"
+    p "A key can have a limited lifespan: it can have an expiration date, a limited number of clicks or even both"
     p(function() 
       text "Author: "
       a{"DarkWiiplayer", href="//darkwiiplayer.com"}
