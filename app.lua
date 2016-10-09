@@ -61,14 +61,28 @@ app:get("download_file", "/download/*", function(self)
   -- |important| todo: check for Accept-Encoding header
   local file, err, errn = io.open("files/"..self.params.splat..".gz")
   if file then
-    local input = file:read "*a"
-    return {
-      input;
-      content_type = "text/plain";
-      headers = {
-        ["content-encoding"]="gzip";
-      };
-    }
+    if self.req.headers["Accept-Encoding"]:find("gzip") then
+      local input = file:read "*a"
+      return {
+        input;
+        content_type = "text/plain";
+        headers = {
+          ["content-encoding"]="gzip";
+        };
+      }
+    else
+      file, err, errn = io.open("files/"..self.params.splat)
+      if file then
+        local input = file:read "*a"
+        file:close()
+        return input
+      else
+        return {
+          "The server has no unzipped version of this file stored!";
+          content_type = "text/plain";
+        }
+      end
+    end
   end
   
   -- Try normal file if no gzipped file can be found
