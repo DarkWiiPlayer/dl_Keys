@@ -17,7 +17,11 @@
     <header>
       <!-- Change this URL if you want, I won't complain if you don't though xD -->
       <a href="/">
-        <h1><img src="/static/dlkey.svg" style="height: 1em; margin-right: 0.4em;" /> dl_Keys</h1>
+        <h1>
+          <img src="/static/dlkey.svg" style="height: 1em; margin-right: 0.4em;" />
+          dl_Keys
+          <span class="special_1"><%= configuration._name:gsub("^(%a)", string.upper) %></span>
+          </h1>
       </a>
       <nav>
         <% for i,page in pairs(nav) do %>

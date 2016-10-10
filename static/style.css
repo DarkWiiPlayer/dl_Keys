@@ -2,37 +2,52 @@
 
 /* THEMES (copy into *)
   Blue Theme  
-  --bg_main:#09e;
-  --fg_main:white;
-  --fg_text:black;
-  --bg_text:white;
+  --theme_primary:#09e;
+  --theme_contrast:white;
+  --document_primary:black;
+  --document_contrast:white;
+  --main_primary: document_primary;
+  --main_contrast: document_contrast;
+  --main_border_width: 0;
   
   Blue Theme 2.0
-  --bg_main:#26a;
-  --fg_main:white;
-  --fg_text:#333;
-  --bg_text:#ccc;
+  --theme_primary:#26a;
+  --theme_contrast:white;
+  --document_primary:#333;
+  --document_contrast:#ccc;
+  --main_primary: document_primary;
+  --main_contrast: document_contrast;
+  --main_border_width: 0;
   
   Green Theme
-  --bg_main:#0d6; 
-  --fg_main:white;
-  --fg_text:black;
-  --bg_text:white;
+  --theme_primary:#0d6; 
+  --theme_contrast:white;
+  --document_primary:black;
+  --document_contrast:white;
+  --main_primary: document_primary;
+  --main_contrast: document_contrast;
+  --main_border_width: 0;
   
   Dark Green Theme
-  --bg_main:#0a2; 
-  --fg_main:black;
-  --fg_text:#dfd;
-  --bg_text:black;
+  --theme_primary:#0a2; 
+  --theme_contrast:black;
+  --document_primary:#dfd;
+  --document_contrast:black;
+  --main_primary: document_primary;
+  --main_contrast: document_contrast;
+  --main_border_width: 0;
 */
 
 * {
   /* Blue Theme */
-  --bg_main:#09e;
-  --fg_main:white;
-  --fg_text:black;
-  --bg_text:white;
+  --theme_primary:#09e;
+  --theme_contrast:white;
+  --document_primary:black;
+  --document_contrast:#f0f2f4;
   
+  --main_primary: document_primary;
+  --main_contrast: white;
+  --main_border_width: 0.1em;
   
   --trans:RGBA(0, 0, 0, 0);
   --spacing:0.4em;
@@ -49,7 +64,6 @@
 ul, ol {
   list-style: inside;
 }
-
 header, main, footer {
   margin: 1em;
   padding: 1em;
@@ -60,27 +74,33 @@ header, footer, footer>* {
 
 /* DOCUMENT */
 :root {
-  background: var(--bg_text);
-  color: var(--fg_text);
+  background: var(--document_contrast);
+  color: var(--document_primary);
 }
 
 /* HEADER */
 
+header .special_1 {
+  vertical-align: text-top;
+  font-size: 0.6em;
+  color: purple;
+}
+header span.special_1::before { content:"["; }
+header span.special_1::after { content:"]"; }
+
 header {
   /* appearance */
-  color: var(--fg_main);
-  background: var(--bg_main);
+  color: var(--theme_contrast);
+  background: var(--theme_primary);
   
   /* layout */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-/*
-header>*:last-child{
-  margin-left: auto;
+header img {
+  vertical-align: text-bottom;
 }
-*/
 
 /* NAVIGATION */
 
@@ -97,7 +117,7 @@ nav>* {
   padding-left: 0.4em;
   padding-right: 0.4em;
   
-  border: 1px solid var(--fg_main);
+  border: 1px solid var(--theme_contrast);
   /* here's some inspiration:
     border-bottom-color: RGBA(255, 255, 255, 0.6);
     border-right-color: RGBA(255, 255, 255, 0.6);
@@ -112,34 +132,40 @@ nav>a{
   transition:background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 nav>a:hover {
-  background: var(--fg_main);
-  color: var(--bg_main);
+  background: var(--theme_contrast);
+  color: var(--theme_primary);
 }
 
 /* MAIN */
 
+main {
+  border: solid var(--main_border_width) var(--theme_primary);
+  background: var(--main_contrast);
+  color: var(--main_primary);
+  border-radius: 1em;
+}
 main a, footer a {
   padding-left: 0.2em;
   padding-right: 0.2em;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
   border-bottom: 0.14em solid;
-} 
-main a { border-bottom-color: var(--bg_main); }
-footer a { border-bottom-color: var(--fg_main); }
+}
+main a { border-bottom-color: var(--theme_primary); }
+footer a { border-bottom-color: var(--theme_contrast); }
 main a:hover {
-  color: var(--fg_main);
-  background: var(--bg_main);
+  color: var(--theme_contrast);
+  background: var(--theme_primary);
 } footer a:hover {
-  color: var(--bg_main);
-  background: var(--fg_main);
+  color: var(--theme_primary);
+  background: var(--theme_contrast);
 }
 
 /* FOOTER */
 
 footer {
   /* appearance */
-  background: var(--bg_main);
-  color: var(--fg_main);
+  background: var(--theme_primary);
+  color: var(--theme_contrast);
   min-height: 16vh;
   
   /* layout */
@@ -153,7 +179,7 @@ footer {
 
 footer>* {
   /* appearance */
-  background-color: var(--bg_main);
+  background-color: var(--theme_primary);
   
   /* layout */
   flex-basis: 20em;
