@@ -58,7 +58,7 @@ local _key_meta = {
 }
 local _keys_meta = {
   __tostring = function(self)
-    return "bitch" -- |todo|: implement
+    return "file.lua line 61" -- |todo|: implement
   end;
 }
 
@@ -141,6 +141,7 @@ end
 function lib.save(keys)
   return write_keys(keyfile, keys)
 end
+lib.is_sub_dir = is_sub_dir
 
 function lib.is_usable(key, path)
   -- Is the key `nil`?

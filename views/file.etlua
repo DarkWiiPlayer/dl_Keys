@@ -1,0 +1,36 @@
+<% -- Start by getting a list of files
+  local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
+  local files = {}
+  local f = io.popen("ls files" .. virtual)
+  for line in f:lines() do
+    if (not access) or (lib_keys.is_sub_dir(access, line)) then
+      table.insert(files, line)
+    end
+  end
+  f:close()
+%>
+
+<h1>Directory index for <%= virtual %></h1>
+
+<nav>
+<% if virtual~="/" then %>
+  <a href="<%= url_for (
+    "file",
+    {splat=virtual:sub(2,-1):gsub("[^/]-/?$", "")},
+    {key=params.key}
+  ) %>">..</a>
+<% end %>
+<% for index, line in ipairs(files) do %>
+  <a href="<%= url_for(
+    "file",
+    {splat = virtual:sub(2,-1):gsub("([^/])$", "%1/")..line},
+    {key=params.key}
+  )%>"
+  <% if file_is("files"..virtual..line, "f") then %>
+    class="file"
+  <% else %>
+    class="dir"
+  <% end %>
+  ><%= line .. (file_is("files"..virtual..line, "d") and "/" or "")%></a>
+<% end %>
+</nav>

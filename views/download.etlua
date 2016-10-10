@@ -1,0 +1,14 @@
+<h1>File information for <%= virtual %></h1>
+
+<nav>
+<% if virtual~="/" then %>
+  <a href="<%= url_for (
+    "file",
+    {splat=virtual:sub(2,-1):gsub("[^/]-/?$", "")},
+    {key=params.key}
+  ) %>">..</a>
+<% end %>
+
+<a href="<%= url_for("download", {splat = params.splat}, {key=params.key}) %>">Download</a>
+
+</nav>
