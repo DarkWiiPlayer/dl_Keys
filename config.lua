@@ -1,17 +1,10 @@
 local config = require "lapis.config"
 
-local _verion_meta = {
-  __tostring = function(self)
-    return "test"
-    --return ("%i.%i.%i"):format(self[1], self[2], self[3])
-  end;
-}
-
 config({"development", "production"}, {
   -- CHANGE THESE!
   secret = "secret";
   session_name = "session_name";
-  version = "0.3.1"
+  version = "1.0.0";
 })
 
 config("development", {
