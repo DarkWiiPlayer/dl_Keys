@@ -4,7 +4,7 @@ config({"development", "production"}, {
   -- CHANGE THESE!
   secret = "secret";
   session_name = "session_name";
-  version = "1.0.0";
+  version = "1.0.1";
 })
 
 config("development", {

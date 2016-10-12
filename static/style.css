@@ -125,8 +125,8 @@ nav>* {
   
   white-space: nowrap;
 }
-nav>*+* {
-  margin-left:0.4em;
+nav>* {
+  margin:0.2em;
 }
 nav>a{
   transition:background 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -137,6 +137,21 @@ nav>a:hover {
 }
 
 /* MAIN */
+
+main nav {
+	align-items: stretch;
+	flex-direction: column;
+}
+main nav>* {
+	font-size: 1.2em;
+	margin: 0;
+	background-color: var(--theme_primary);
+	padding: 0.2em;
+	border-radius: 0.4em;
+}
+main nav>a {
+	border-bottom: none;
+}
 
 main {
   border: solid var(--main_border_width) var(--theme_primary);
