@@ -25,7 +25,7 @@
       </a>
       <nav>
         <% for i,page in pairs(nav) do %>
-          <a href="<%=url_for(page:lower():gsub(" ","_"))%>"><%=page%></a> <!-- These links are all dynamically generated -->
+          <a href="<%=url_for(page:lower():gsub(" ","_"), {}, {key=params.key})%>"><%=page%></a> <!-- These links are all dynamically generated -->
         <% end %>
         <a href="//google.com" target="_blank">google.com</a> <!-- Just as an example for a static linc -->
       </nav>
