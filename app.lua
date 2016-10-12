@@ -2,6 +2,7 @@ local lapis = require "lapis"
 local configuration = require("lapis.config").get()
 local app = lapis.Application()
 local keys = require "keys.file"
+local util = require"lapis.util"
 
 app:enable("etlua")
 app.layout = false
@@ -13,12 +14,17 @@ app:before_filter(function(self)
   -- ADMIN KEY --
   self.masterkey = "administrator" -- |todo|: move this to the configuration
   self.lib_keys = keys
+	self.unescape = util.unescape
 end)
 
 --[[
 #Meta
 These are the sections that provide information to the user
 --]]
+
+app:get("test", "/test", function(self)
+	return( util.escape("test test / test") )
+end)
 
 app:get("front_page", "/", function(self)
   return {self:html(function(env)
@@ -68,7 +74,7 @@ See _file section_ for information about files
 
 app:get("download", "/download(/*)", function(self)
   local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
-  self.virtual = "/" .. (self.params.splat or "")
+  self.virtual = "/" .. util.unescape(self.params.splat or "")
   do
     local key = self.keys[self.params.key]
     self.access = keys.is_usable(key) and key.path
@@ -118,7 +124,7 @@ This is where the user will see information about files and get a download link
 
 app:get("file", "/file(/*)", function(self)
   local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
-  self.virtual = "/" .. (self.params.splat or "")
+  self.virtual = "/" .. util.unescape(self.params.splat or "")
   do
     local key = self.keys[self.params.key]
     self.access = keys.is_usable(key) and key.path
