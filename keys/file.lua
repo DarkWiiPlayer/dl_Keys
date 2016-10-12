@@ -1,5 +1,5 @@
 local lib = {}
-
+local keylen = 5
 local keyfile = ".keys"
 
 function lib.set_keyfile(kf)
@@ -58,7 +58,7 @@ local _key_meta = {
 }
 local _keys_meta = {
   __tostring = function(self)
-    return "file.lua line 61" -- |todo|: implement
+    return "keylist from file" -- |todo|: implement
   end;
 }
 
@@ -86,7 +86,7 @@ local function is_valid(key)
   if (key.ends < os.time()) and (key.ends > 0) then return false end
   -- Has it been used too many times?
   if key.max_clicks > 0 then
-    if key.clicks > key.max_clicks then return false end
+    if key.clicks >= key.max_clicks then return false end
   end
   return true
 end
@@ -161,9 +161,11 @@ function lib.is_usable(key, path)
 end
 
 function lib.use(key, path)
-  if not lib.is_usable(key, path) then return false end
+  if not lib.is_usable(key, path) then return key end
   
   key.clicks = key.clicks + 1
+	
+	print(("Used key %s to access %s"):format(key.key, path))
   
   return true
 end
@@ -172,7 +174,7 @@ function lib.new(key)
   local new = setmetatable({}, _key_meta)
   
   new.path = key.path or "/"
-  new.key = key.key or generate_key(20)
+  new.key = key.key or generate_key(keylen)
   new.starts = key.starts or os.time()
   new.ends = key.ends or 0
   new.clicks = 0

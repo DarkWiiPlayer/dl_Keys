@@ -7,11 +7,11 @@ app:enable("etlua")
 app.layout = false
 
 app:before_filter(function(self)
-  self.nav = {"Front page", "About"}
+  self.nav = {"Front page", "About", "File"}
   self.configuration = configuration;
   self.keys = keys.load()
   -- ADMIN KEY --
-  self.keys["administrator"]=keys.new{key="administrator", path="/"}
+  self.masterkey = "administrator" -- |todo|: move this to the configuration
   self.lib_keys = keys
 end)
 
@@ -50,13 +50,7 @@ app:get("about", "/about", function(self)
   }
 end)
 
---[[
-#==Download Section==
-This is where files are actually downloaded
-See _file section_ for information about files
---]]
-
---[[ -- |DEBUG| Never leave this enabled in a production environment!
+---[[ -- |DEBUG| Never leave this enabled in a production environment!
 app:get("keys", "/keys", function(self)
   local t = {content_type="text/plain"}
   for key_str, key in pairs(self.keys) do
@@ -66,8 +60,54 @@ app:get("keys", "/keys", function(self)
 end)
 --]]
 
+--[[
+#==Download Section==
+This is where files are actually downloaded
+See _file section_ for information about files
+--]]
+
 app:get("download", "/download(/*)", function(self)
-  return "go back"
+  local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
+  self.virtual = "/" .. (self.params.splat or "")
+  do
+    local key = self.keys[self.params.key]
+    self.access = keys.is_usable(key) and key.path
+  end
+  local function deny(msg) return {
+    layout="layout";
+    status=403;
+    msg or "Access Denied!";
+  } end
+  
+  local function serve_file(name)
+    local file = io.open(name)
+    if not file then print "Could not read file" return { status="500", "Internal server error" } end
+    
+    local content = file:read("*a")
+		if not keys.use(self.keys[self.params.key]) then return "consistency error!\nKey passed initial validity check but keys.use returned false =/" end
+		keys.save(self.keys)
+    
+    return {
+      content;
+      content_type="other";
+      headers = {
+        ["content-length"]=#content;
+      }
+    }
+  end
+  
+  if not self.access then return deny "Access denied: Please provide a valid access key!" end
+  if not keys.is_usable(key, self.virtual) then deny "Access denied: Key does not apply!" end
+  
+  if file_is("files"..self.virtual, "d") then
+    return { redirect_to=self:url_for("file", {splat=self.params.splat}, {key=self.params.key}) }
+    
+  elseif file_is("files"..self.virtual, "f") then
+    return serve_file("files"..self.virtual)
+  else
+    return "weird error" -- not really
+  end
+  
 end)
 
 
@@ -77,9 +117,6 @@ This is where the user will see information about files and get a download link
 --]]
 
 app:get("file", "/file(/*)", function(self)
---[[
-#Initial Setup
---]]
   local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
   self.virtual = "/" .. (self.params.splat or "")
   do
