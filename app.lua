@@ -22,49 +22,19 @@ end)
 These are the sections that provide information to the user
 --]]
 
-app:get("test", "/test", function(self)
-	return( util.escape("test test / test") )
-end)
-
 app:get("front_page", "/", function(self)
-  return {self:html(function(env)
-    h1 "Main Page"
-    p "This is where you can put your content; a brief explanation of who you are, or what files you want to share and why, etc."
-    h2 "Project Roadmap"
-    ul(function(self)
-      li "Add directory index"
-      li "Add permissions to directory index"
-      li "Add a way to add keys via web interface"
-    end)
-  end);
-  layout="layout";
+  return {
+		render=true;
+		layout="layout";
   }
 end)
 
 app:get("about", "/about", function(self)
-  return {self:html(function(env)
-    h1 "About dl_Keys"
-    p "dl_Keys is a web-app built on top of the lapis web framework that serves files for downloads protected by download keys."
-    p "The idea is that every key applies to a single file or directory, allowing access to that file or an subdirectory (and its files)"
-    p "A key can have a limited lifespan: it can have an expiration date, a limited number of clicks or even both"
-    p(function() 
-      text "Author: "
-      a{"DarkWiiplayer", href="//darkwiiplayer.com"}
-    end)
-  end);
-  layout="layout";
+  return {
+		render=true;
+		layout="layout";
   }
 end)
-
----[[ -- |DEBUG| Never leave this enabled in a production environment!
-app:get("keys", "/keys", function(self)
-  local t = {content_type="text/plain"}
-  for key_str, key in pairs(self.keys) do
-    table.insert(t, tostring(key).."\n".."\n")
-  end
-  return t
-end)
---]]
 
 --[[
 #==Download Section==
@@ -140,7 +110,7 @@ app:get("file", "/file(/*)", function(self)
   if not self.access then return deny "Access denied: Please provide a valid access key!" end
   
 --[[
-#Serve the data
+#Serve the Information
 At this point everything should be set up correctly
 --]]
 

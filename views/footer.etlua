@@ -1,15 +1,17 @@
 <footer class="simpler">
   <% for i=1,2 do %>
     <div>
-      <h2>Footer</h2>
+      <h1>Footer</h1>
       <p>This is a footer element with the number <%= i %></p>
     </div>
   <% end %>
+	
   <div>
-    <h2>dl_Keys version <%= configuration.version %></h2>
+    <h1>dl_Keys version <%= configuration.version %></h1>
     <p>
       author: DarkWiiPlayer <br />
-      email: <a href="mailto:darkwiiplayer@hotmail.com">darkwiiplayer@hotmail.com</a>
+      email: <a href="mailto:darkwiiplayer@hotmail.com">darkwiiplayer@hotmail.com</a> <br />
+			github: <a href="//github.com/darkWiiPlayer/dl_Keys" target="_blank">github.com/darkWiiPlayer/dl_Keys</a>
     </p>
   </div>
 </footer>
