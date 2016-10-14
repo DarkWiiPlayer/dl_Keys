@@ -1,204 +1,137 @@
 /* INIT */
 
-/* THEMES (copy into *)
-  Blue Theme  
-  --theme_primary:#09e;
-  --theme_contrast:white;
-  --document_primary:black;
-  --document_contrast:white;
-  --main_primary: document_primary;
-  --main_contrast: document_contrast;
-  --main_border_width: 0;
-  
-  Blue Theme 2.0
-  --theme_primary:#26a;
-  --theme_contrast:white;
-  --document_primary:#333;
-  --document_contrast:#ccc;
-  --main_primary: document_primary;
-  --main_contrast: document_contrast;
-  --main_border_width: 0;
-  
-  Green Theme
-  --theme_primary:#0d6; 
-  --theme_contrast:white;
-  --document_primary:black;
-  --document_contrast:white;
-  --main_primary: document_primary;
-  --main_contrast: document_contrast;
-  --main_border_width: 0;
-  
-  Dark Green Theme
-  --theme_primary:#0a2; 
-  --theme_contrast:black;
-  --document_primary:#dfd;
-  --document_contrast:black;
-  --main_primary: document_primary;
-  --main_contrast: document_contrast;
-  --main_border_width: 0;
-*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-* {
-  /* Blue Theme */
-  --theme_primary:#09e;
-  --theme_contrast:white;
-  --document_primary:black;
-  --document_contrast:#f0f2f4;
-  
-  --main_primary: document_primary;
-  --main_contrast: white;
-  --main_border_width: 0.1em;
-  
-  --trans:RGBA(0, 0, 0, 0);
-  --spacing:0.4em;
+* { /* Theme */
+  --theme_primary:#09e; --theme_primary_text: white;
+  --theme_secondary: #666; --theme_secondary_text: white;
+  --theme_background: white;
+  --theme_article_bg: rgba(255, 255, 255, 0.2);
+  --theme_article_fg: white;
+
+  --bg_image: url(http://www.darkwiiplayer.com/src/img/schrammsteine.jpg);
 }
-* { box-sizing: border-box; font-family: "sans-serif"; font-weight: normal; color:inherit; text-decoration:inherit;}
+* { box-sizing: border-box; font-family: "Open Sans", sans-serif; font-weight: normal; color:inherit; text-decoration:inherit;}
 * { padding:0; margin: 0; }
-
-*+h1, *+h2, *+h3, *+h4, *+p {
-  margin-top:var(--spacing);
-}
-
-/* GENERAL */
 
 ul, ol {
   list-style: inside;
 }
-header, main, footer {
-  margin: 1em;
-  padding: 1em;
-}
-header, footer, footer>* {
-  border-radius: 0.4em;
-}
-
-/* DOCUMENT */
-:root {
-  background: var(--document_contrast);
-  color: var(--document_primary);
+body {
+  background-image: linear-gradient(to bottom, rgba(0,40,80,0.8), rgba(0,0,0,0.6)), var(--bg_image);
+  background-attachment: fixed;
+  background-size: contain, cover;
+  color: white;
 }
 
-/* HEADER */
-
-header .special_1 {
-  vertical-align: text-top;
-  font-size: 0.6em;
-  color: purple;
+/* Flex Design */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
 }
-header span.special_1::before { content:"["; }
-header span.special_1::after { content:"]"; }
-
 header {
-  /* appearance */
-  color: var(--theme_contrast);
-  background: var(--theme_primary);
-  
-  /* layout */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+nav {
+  display: flex;
+}
+footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-}
-header img {
-  vertical-align: text-bottom;
+} footer>* {
+  flex: 1;
 }
 
-/* NAVIGATION */
-
-nav {
-  /* layout */
-  display: flex;
-  align-items: center;
-  padding-top:0.4em;
-  padding-bottom:0.4em;
+/* Spacings */
+header {
+  padding: 1em;
 }
-nav>* {
-  border-radius: 0.14em;
+header>nav>* {
+  padding: 0.1em;
+  padding-left:0.4em;
+  padding-right:0.4em;
+  margin: 0.2em;
+}
+body>main {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+body>main>* {
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+main nav {
+  flex-direction: column;
+}
+main *+nav { margin-top: 1em; }
+main>article { margin-top: 2em; margin-bottom: 2em; }
+main nav>* {
+  background: var(--theme_primary);
+  color: var(--theme_primary_text);
+  border-radius: 0.1em;
   padding: 0.2em;
   padding-left: 0.4em;
   padding-right: 0.4em;
-  
-  border: 1px solid var(--theme_contrast);
-  /* here's some inspiration:
-    border-bottom-color: RGBA(255, 255, 255, 0.6);
-    border-right-color: RGBA(255, 255, 255, 0.6);
-  */
-  
-  white-space: nowrap;
-}
-nav>* {
-  margin:0.2em;
-}
-nav>a{
-  transition:background 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-nav>a:hover {
-  background: var(--theme_contrast);
-  color: var(--theme_primary);
-}
+  transition: color ease-in-out 0.3s, background ease-in-out 0.3s;
+} main nav>*+* { margin-top: 0.2em; }
+main nav>*:hover { color: var(--theme_primary); background: var(--theme_primary_text); }
 
-/* MAIN */
-
-main nav {
-	align-items: stretch;
-	flex-direction: column;
+body>footer {
+  margin-top: auto;
 }
-main nav>* {
-	font-size: 1.2em;
-	margin: 0;
-	background-color: var(--theme_primary);
-	padding: 0.2em;
-	border-radius: 0.4em;
-}
-main nav>a {
-	border-bottom: none;
-}
-
-main {
-  border: solid var(--main_border_width) var(--theme_primary);
-  background: var(--main_contrast);
-  color: var(--main_primary);
-  border-radius: 1em;
-}
-main a, footer a {
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-  border-bottom: 0.14em solid;
-}
-main a { border-bottom-color: var(--theme_primary); }
-footer a { border-bottom-color: var(--theme_contrast); }
-main a:hover {
-  color: var(--theme_contrast);
-  background: var(--theme_primary);
-} footer a:hover {
-  color: var(--theme_primary);
-  background: var(--theme_contrast);
-}
-
-/* FOOTER */
-
 footer {
-  /* appearance */
-  background: var(--theme_primary);
-  color: var(--theme_contrast);
-  min-height: 16vh;
-  
-  /* layout */
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-} footer.simpler {
-  padding: 0;
-  background: var(--trans);
+  padding: 1em;
 }
 
-footer>* {
-  /* appearance */
-  background-color: var(--theme_primary);
-  
-  /* layout */
-  flex-basis: 20em;
-  flex-grow: 2;
-  margin: 0.2em;
-  padding: 1em;
+/* Colors */
+header>nav>* {
+  border: 0.1em solid var(--theme_primary_text);
+  border-radius: 0.1em;
+  transition: background, ease-in-out, 0.3s, color, ease-in-out, 0.3s;
+}
+header>nav>*:hover {
+  background: var(--theme_primary_text);
+  color: var(--theme_primary);
+}
+header {
+  background: var(--theme_primary);
+  color: var(--theme_primary_text);
+}
+footer {
+  background: var(--theme_secondary);
+  color: var(--theme_secondary_text);
+}
+article {
+  background: var(--theme_article_bg);
+  color: var(--theme_article_fg);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+/* Fonts */
+body>footer {
+  font-size: 0.8em;
+}
+
+/* Highlights */
+
+article h1 {
+  border-bottom: 1px solid var(--theme_article_fg);
+}
+
+/* Tweaks */
+h1 {font-size: 1.8em;}
+h2 {font-size: 1.6em;}
+h3 {font-size: 1.4em;}
+h4 {font-size: 1.2em;}
+
+*+h1, *+h2, *+h3, *+h4, *+p { margin-top: 0.4em; }
+
+header h1>img {
+  vertical-align: bottom;
 }
