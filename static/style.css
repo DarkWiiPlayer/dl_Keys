@@ -78,7 +78,7 @@ main nav>* {
   padding-left: 0.4em;
   padding-right: 0.4em;
   transition: color ease-in-out 0.3s, background ease-in-out 0.3s;
-} main nav>*+* { margin-top: 0.2em; }
+} main nav>*+* { margin-top: 0.3em; }
 main nav>*:hover { color: var(--theme_primary); background: var(--theme_primary_text); }
 
 body>footer {
