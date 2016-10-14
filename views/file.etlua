@@ -21,16 +21,17 @@
   ) %>">..</a>
 <% end %>
 <% for index, line in ipairs(files) do %>
+	<% local is_dir = file_is("files"..virtual..line, "d") %>
   <a href="<%= url_for(
-    "file",
+    is_dir and "file" or "download",
     {splat = virtual:sub(2,-1):gsub("([^/])$", "%1/")..line},
     {key=params.key}
   )%>"
-  <% if file_is("files"..virtual..line, "f") then %>
-    class="file"
-  <% else %>
+  <% if is_dir then %>
     class="dir"
+  <% else %>
+    class="file"
   <% end %>
-  ><%= line .. (file_is("files"..virtual..line, "d") and "/" or "")%></a>
+  ><%= line .. (is_dir and "/" or "")%></a>
 <% end %>
 </nav>
