@@ -132,6 +132,22 @@ h4 {font-size: 1.2em;}
 
 *+h1, *+h2, *+h3, *+h4, *+p { margin-top: 0.4em; }
 
-header h1>img {
-  vertical-align: bottom;
+header>a>* {
+	display: inline;
+  vertical-align: middle;
+}
+
+/* Graphics */
+svg#logo .shadow {
+	display: none;
+}
+svg#logo .bg {
+	display: none;
+}
+svg#logo .fg {
+	fill: var(--theme_primary_text);
+}
+svg#logo {
+	height: 3.4em;
+	width: auto;
 }
