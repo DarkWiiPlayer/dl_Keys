@@ -22,6 +22,11 @@ end)
 These are the sections that provide information to the user
 --]]
 
+app:get("key_dump", "/dump", function(self)
+	self.keys = require "lapis.db.model".Model:extend("keys")
+	return {render=true}
+end)
+
 app:get("front_page", "/", function(self)
   return {
 		render=true;

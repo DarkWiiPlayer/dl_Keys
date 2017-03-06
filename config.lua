@@ -5,6 +5,12 @@ config({"development", "production"}, {
   secret = "secret";
   session_name = "session_name";
   version = "1.0.2";
+  postgres = {
+		host = "127.0.0.1",
+		user = "lapis",
+		password = "lapisuser",
+		database = "db_lapis"
+	}
 })
 
 config("development", {
