@@ -1,0 +1,3 @@
+local update = require'lapis.db'.update
+
+update('keys',{clicks=0})

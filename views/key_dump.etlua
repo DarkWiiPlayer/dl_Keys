@@ -1,17 +1,5 @@
-<%
-	keys = keys:select()
-	local time_sql = keys[1].starts
-	local _, _, year, month, day, hour, minute, second =
-		time_sql:find "(%d%d%d%d)-(%d%d)-(%d%d) (%d%d):(%d%d):(%d%d)"
-	local time_lua = os.time { year=year, month=month, day=day, hour=hour, minute=minute, second=second }
-%>
-
-<p>	
-	<%= os.date("%H:%M:%S %d.%m.%Y", time_lua) %>
-</p>
-
 <table>
-	<% for key, value in ipairs(keys) do %>
+	<% for key, value in ipairs(keys:select()) do %>
 		<tr>
 		<% for name, field in pairs(value) do %>
 			<td><%= field %></td>
@@ -19,3 +7,7 @@
 		</tr>
 	<% end %>
 </table>
+
+<% -- Reset click counts
+	--require'lapis.db'.update("keys", {clicks = 0})
+%>

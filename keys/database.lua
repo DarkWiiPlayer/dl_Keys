@@ -33,8 +33,9 @@ local keylen = 5
 -- **Data Access / Back-end**
 
 local function time(time)
+	if not time then return nil end
 	local _, _, year, month, day, hour, minute, second =
-		time:find "(%d%d%d%d)-(%d%d)-(%d%d) (%d%d):(%d%d):(%d%d)"
+		time:find "(%d+)-(%d?%d)-(%d?%d)%s+(%d?%d):(%d?%d):(%d?%d)"
 	return os.time { year=year, month=month, day=day, hour=hour, minute=minute, second=second }
 end
 
@@ -42,16 +43,16 @@ local function is_sub_dir(sub_dir, dir)
   return sub_dir:gsub("/&", ""):gsub("/?$", "/"):find(dir:gsub("/?$", "/"):gsub("^/?", "/")) and true or false
 end
 
-local function is_valid(key)
-	local e = keys:find(key)
-	if not e then return false end
+local function get_key(key)
+	key = keys:find(key)
+	if not key then return false, "Key cannot be nil", 0 end
   -- Is the key too old?
-  if (time(key.ends) < os.time()) and (time(key.ends) > 0) then return false end
+  if (time(key.ends) < os.time()) and (time(key.ends) > 0) then return false, "This key has expired", 1 end
   -- Has it been used too many times?
   if key.max_clicks > 0 then
-    if key.clicks >= key.max_clicks then return false end
+    if key.clicks >= key.max_clicks then return false, "Activation limit reached.", 2 end
   end
-  return true
+  return key
 end
 
 -- **Interface / Front-end**
@@ -59,28 +60,29 @@ end
 lib.is_sub_dir = is_sub_dir
 
 function lib.is_usable(key, path)
-  -- Is the key `nil`?
-  if not key then return nil, "no key" end
   -- Is the key invalid or has it expired?
-  if not is_valid(key) then return false, "invalid" end
+  local msg, err; key, msg, err = get_key(key)
+	if not key then return false, "invalid" end
   
-  -- Has the key lifetime started yet?  
+  -- Has the key lifetime started yet?
   if time(key.starts) > os.time() then return false, "not valid yet" end
   
   -- If dir is provided, does the key apply to it?
   if type(path)=="string" then
-    return is_sub_dir(path, key.path)
+    return is_sub_dir(path, key.path) and key
   end
   
-  return true
+  return false
 end
 
 function lib.use(key, path)
-  if not lib.is_usable(key, path) then return key end
+	key = lib.is_usable(key, path)
+  if not key then return nil end
   
-  key.clicks = key.clicks + 1
+	key.clicks = key.clicks + 1
+	key:update("clicks")
 	
-	print(("Used key %s to access %s"):format(key.key, path))
+	print(("Used key %s to access %s"):format(key.id, path))
   
   return true
 end
@@ -97,16 +99,5 @@ function lib.new(key)
   
   return new
 end
-
--- debugging stuff --
---[[
-local k = read_keys(keyfile) or {}
-
--- k[#k+1]=lib.new({path="/new", key=generate_key(10), starts=os.time(), ends=os.time()+120*60, max_clicks=20})
--- checks go here --
-print(lib.use(k["B5127C6C37F4187AA719"], "/new"))
-print(k["B5127C6C37F4187AA719"])
-write_keys(keyfile, k)
---]]
 
 return lib
