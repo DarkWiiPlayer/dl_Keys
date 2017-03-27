@@ -2,10 +2,16 @@ local util = require"lapis.util"
 local keys = require "keys.file"
 
 return function(self)
+	do
+    local key = self.params.key
+    self.access = keys.use(key)
+  end
+	
   local function file_is(path, t) return os.execute(('[ -%s "%s" ]'):format(t, path)) == 0 end
   self.virtual = "/" .. util.unescape(self.params.splat or "")
 	if file_is("files"..self.virtual, "d") then self.virtual = self.virtual:gsub("[^/]$", "%1/") end
-	-- In lua 5.3 this is equivalent to :gsub("/?$", "?") but in 5.1 this doesn't work =/
+	-- In lua 5.3 this is equivalent to :gsub("/?$", "/") but in 5.1 this doesn't work =/
+	-- |TODO| confirm this
   do
     local key = self.keys[self.params.key]
     self.access = keys.is_usable(key) and key.path

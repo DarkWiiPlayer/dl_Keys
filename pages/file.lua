@@ -14,8 +14,8 @@ local function deny(msg) return {
 return function(self)
   self.virtual = "/" .. util.unescape(self.params.splat or "")
   do
-    local key = self.keys[self.params.key]
-    self.access = keys.is_usable(key) and key.path
+    local key = self.params.key
+    self.access = self.params.key--keys.is_usable(key)
   end
   
   if not self.access then return deny "Access denied: Please provide a valid access key!" end
@@ -38,7 +38,7 @@ At this point everything should be set up correctly
         render=true;
       }
     else
-      return deny("Access denied! (Wrong key)")
+      return deny "Access denied! (Wrong key)"
     end
   elseif file_is("files"..self.virtual, "f") then
     return {
