@@ -57,11 +57,11 @@ end
 
 -- **Interface / Front-end**
 
+lib.get = get_key
 lib.is_sub_dir = is_sub_dir
 
 function lib.is_usable(key, path)
   -- Is the key invalid or has it expired?
-  local msg, err; key, msg, err = get_key(key)
 	if not key then return false, "invalid" end
   
   -- Has the key lifetime started yet?
@@ -69,15 +69,14 @@ function lib.is_usable(key, path)
   
   -- If dir is provided, does the key apply to it?
   if type(path)=="string" then
-    return is_sub_dir(path, key.path) and key
+    return is_sub_dir(path, key.path)
   end
   
   return false
 end
 
 function lib.use(key, path)
-	key = lib.is_usable(key, path)
-  if not key then return nil end
+  if not lib.is_usable(key, path) then return nil end
   
 	key.clicks = key.clicks + 1
 	key:update("clicks")
