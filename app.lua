@@ -1,7 +1,7 @@
 local lapis = require "lapis"
 local configuration = require("lapis.config").get()
 local app = lapis.Application()
-local keys = require "keys.file"
+local keys = require "keys.database"
 local util = require"lapis.util"
 
 app:enable("etlua")
@@ -10,11 +10,10 @@ app.layout = false
 app:before_filter(function(self)
   self.nav = {"Front page", "About", "File"}
   self.configuration = configuration;
-  self.keys = keys.load()
-  -- ADMIN KEY --
-  self.masterkey = "administrator" -- |todo|: move this to the configuration
-  self.lib_keys = keys
-	self.unescape = util.unescape
+	self.unescape = util.unescape	
+	if self.params.key then
+    self.access = keys.get(self.params.key)
+  end
 end)
 
 --[[
